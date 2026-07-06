@@ -8,11 +8,22 @@ const expenseInput = document.getElementById("expenseInput");
 const totalBtn = document.getElementById("totalBtn");
 const expenseBtn = document.getElementById("expenseBtn");
 
-let total = 300;
+let total = [100, 200];
 
 totalBtn.addEventListener("click", () => {
-  let totalVal = totalInput.value;
-
-  totalDisplay.textContent = totalVal;
-  totalInput.value = "";
+  render();
 });
+
+function updateTotal() {
+  let totalVal = Number(totalInput.value);
+  total.push(totalVal);
+  return total.reduce((total, num) => total + num, 0);
+}
+
+console.log(updateTotal());
+
+function render() {
+  let renderTotal = updateTotal();
+  totalDisplay.textContent = renderTotal;
+  totalInput.value = "";
+}
