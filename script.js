@@ -12,6 +12,7 @@ let total = 300;
 
 totalBtn.addEventListener("click", () => {
   let totalVal = totalInput.value;
+
   totalDisplay.textContent = totalVal;
   totalInput.value = "";
 });
