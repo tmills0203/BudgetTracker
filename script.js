@@ -8,35 +8,33 @@ const expenseInput = document.getElementById("expenseInput");
 const totalBtn = document.getElementById("totalBtn");
 const expenseBtn = document.getElementById("expenseBtn");
 
-totalBtn.addEventListener("click", (e) => {
-  e.preventDefault();
+let total = [];
 
+totalBtn.addEventListener("click", () => {
   let inputNumVal = Number(totalInput.value);
-  // console.log(inputNumVal);
-  localStorage.setItem("totalNum", inputNumVal);
-  updateTotal(inputNumVal);
+  total.push(inputNumVal);
+  console.log(total);
 
+  localStorage.setItem("totalNums", inputNumVal);
   totalInput.value = "";
+
+  render();
 });
 
-function updateTotal(inputNumVal) {
-  let inputStorageNum = inputNumVal;
-  console.log(`this is input from click btn ${inputStorageNum}`);
+function updateTotal() {
   // retrieve number from localstorage
-  let currentNum = +localStorage.getItem("totalNum");
+  let currentNums = JSON.parse(localStorage.getItem("totalNums"));
 
-  // updated num
-  currentNum += inputStorageNum;
-  console.log(`this is the updated num: ${currentNum}`);
+  // total array
+  let sum = total.reduce((sum, num) => sum + num, 0);
+  console.log(sum);
 
-  let result = localStorage.setItem("totalNum", currentNum);
-  console.log(result);
-  // return result;
+  localStorage.setItem("totalNums", JSON.stringify(currentNums));
+
+  return sum;
 }
-// console.log(localStorage);
 
-// function render() {
-//   let renderTotal = updateTotal();
-//   totalDisplay.textContent = renderTotal;
-//   totalInput.value = "";
-// }
+function render() {
+  let renderTotal = updateTotal();
+  totalDisplay.textContent = renderTotal;
+}
